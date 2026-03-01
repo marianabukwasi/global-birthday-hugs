@@ -9,8 +9,8 @@ const ranks = [
   { level: 5, name: "Celebration Hero", amount: "$500", stars: 5, color: "bg-primary/10" },
   { level: 6, name: "Joy Bringer", amount: "$1,000", stars: 6, color: "bg-primary/15" },
   { level: 7, name: "Legendary Giver", amount: "$5,000", stars: 7, color: "bg-primary/20" },
-  { level: 8, name: "World Celebrator", amount: "$10,000", stars: 8, color: "bg-accent/20" },
-  { level: 9, name: "Diamond Heart", amount: "$100,000", stars: 9, color: "bg-accent/30" },
+  { level: 8, name: "World Celebrator", amount: "$10,000", stars: 8, color: "bg-primary/25" },
+  { level: 9, name: "Diamond Heart", amount: "$100,000", stars: 9, color: "bg-gradient-gold" },
   { level: 10, name: "Golden Giver ✨", amount: "$1,000,000", stars: 10, color: "bg-gradient-gold" },
 ];
 
@@ -41,13 +41,13 @@ export const GivingRanks = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className={`${rank.color} rounded-2xl p-5 text-center border border-border hover:shadow-warm transition-all hover:-translate-y-1`}
+              className={`${rank.color} rounded-2xl p-5 text-center border border-border hover:shadow-champagne transition-all hover:-translate-y-1`}
             >
               <div className="flex justify-center gap-0.5 mb-3">
                 {Array.from({ length: rank.stars }).map((_, s) => (
                   <Star
                     key={s}
-                    className={`w-3.5 h-3.5 ${i >= 8 ? "text-accent fill-accent" : "text-primary fill-primary"}`}
+                    className={`w-3.5 h-3.5 ${i >= 8 ? "text-primary fill-primary" : "text-primary fill-primary"}`}
                   />
                 ))}
               </div>

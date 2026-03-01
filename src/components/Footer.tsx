@@ -8,7 +8,7 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-hero flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-gradient-champagne flex items-center justify-center">
                 <Cake className="w-4 h-4 text-primary-foreground" />
               </div>
               <span className="font-display text-lg font-bold">Birthday CORE</span>

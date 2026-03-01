@@ -60,7 +60,7 @@ export const HowItWorks = () => {
               {i < steps.length - 1 && (
                 <div className="hidden md:block absolute top-12 left-[60%] w-[80%] h-px border-t-2 border-dashed border-border" />
               )}
-              <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-hero flex items-center justify-center shadow-warm relative">
+              <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-champagne flex items-center justify-center shadow-champagne relative">
                 <step.icon className="w-10 h-10 text-primary-foreground" />
                 <span className="absolute -top-2 -right-2 text-2xl">{step.emoji}</span>
               </div>

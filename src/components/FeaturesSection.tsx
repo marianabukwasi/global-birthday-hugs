@@ -61,9 +61,9 @@ export const FeaturesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-warm transition-all hover:-translate-y-1"
+              className="bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-champagne transition-all hover:-translate-y-1"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-hero flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-champagne flex items-center justify-center mb-4">
                 <f.icon className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-display text-lg font-semibold text-foreground mb-2">{f.title}</h3>
