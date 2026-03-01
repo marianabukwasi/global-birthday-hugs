@@ -60,7 +60,7 @@ const Discover = () => {
                 key={m}
                 size="sm"
                 variant={selectedMonth === m ? "default" : "outline"}
-                className={`rounded-full ${selectedMonth === m ? "bg-gradient-hero text-primary-foreground border-0" : ""}`}
+                className={`rounded-full ${selectedMonth === m ? "bg-gradient-champagne text-primary-foreground border-0" : ""}`}
                 onClick={() => setSelectedMonth(m)}
               >
                 {m === "All" ? <Globe className="w-3 h-3 mr-1" /> : <Calendar className="w-3 h-3 mr-1" />}

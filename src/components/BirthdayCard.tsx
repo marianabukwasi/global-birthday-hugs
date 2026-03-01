@@ -26,9 +26,9 @@ export const BirthdayCard = ({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-card rounded-2xl border border-border shadow-card hover:shadow-warm transition-all hover:-translate-y-1 overflow-hidden"
+      className="bg-card rounded-2xl border border-border shadow-card hover:shadow-champagne transition-all hover:-translate-y-1 overflow-hidden"
     >
-      <div className="h-20 bg-gradient-hero relative">
+      <div className="h-20 bg-gradient-champagne relative">
         <div className="absolute -bottom-8 left-5">
           <div className="w-16 h-16 rounded-full border-4 border-card bg-muted overflow-hidden">
             <img src={avatar} alt={name} className="w-full h-full object-cover" />
@@ -36,7 +36,7 @@ export const BirthdayCard = ({
         </div>
         <div className="absolute top-3 right-3 flex gap-0.5">
           {Array.from({ length: Math.min(rank, 10) }).map((_, i) => (
-            <Star key={i} className="w-3 h-3 text-accent fill-accent" />
+            <Star key={i} className="w-3 h-3 text-primary-foreground fill-primary-foreground" />
           ))}
         </div>
       </div>
@@ -57,15 +57,15 @@ export const BirthdayCard = ({
             <span className="text-muted-foreground">${goal} goal</span>
           </div>
           <div className="h-2 bg-muted rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-hero rounded-full transition-all" style={{ width: `${progress}%` }} />
+            <div className="h-full bg-gradient-champagne rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
           <div className="text-xs text-muted-foreground mt-1">
-            <Heart className="w-3 h-3 inline text-secondary" /> {contributors} contributors
+            <Heart className="w-3 h-3 inline text-primary" /> {contributors} contributors
           </div>
         </div>
 
         <Link to={`/profile/${id}`}>
-          <Button size="sm" className="w-full bg-gradient-hero text-primary-foreground border-0 hover:opacity-90 rounded-full">
+          <Button size="sm" className="w-full bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90 rounded-full">
             🎉 Contribute $1
           </Button>
         </Link>

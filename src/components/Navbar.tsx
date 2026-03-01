@@ -19,11 +19,11 @@ export const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-gradient-champagne flex items-center justify-center">
             <Cake className="w-5 h-5 text-primary-foreground" />
           </div>
           <span className="font-display text-xl font-bold text-foreground">
-            Birthday <span className="text-gradient-hero">CORE</span>
+            Birthday <span className="text-gradient-champagne">CORE</span>
           </span>
         </Link>
 
@@ -52,7 +52,7 @@ export const Navbar = () => {
           <Button variant="outline" size="sm">
             Sign In
           </Button>
-          <Button size="sm" className="bg-gradient-hero text-primary-foreground border-0 hover:opacity-90">
+          <Button size="sm" className="bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90">
             Join — $2
           </Button>
         </div>
@@ -87,7 +87,7 @@ export const Navbar = () => {
               ))}
               <div className="flex gap-2 pt-2">
                 <Button variant="outline" size="sm" className="flex-1">Sign In</Button>
-                <Button size="sm" className="flex-1 bg-gradient-hero text-primary-foreground border-0">Join — $2</Button>
+                <Button size="sm" className="flex-1 bg-gradient-champagne text-primary-foreground border-0">Join — $2</Button>
               </div>
             </div>
           </motion.div>

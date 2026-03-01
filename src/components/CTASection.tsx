@@ -5,7 +5,7 @@ import { Confetti } from "./Confetti";
 export const CTASection = () => {
   return (
     <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-hero opacity-90" />
+      <div className="absolute inset-0 bg-gradient-champagne opacity-90" />
       <Confetti />
       <div className="container mx-auto px-4 relative z-10 text-center">
         <motion.div
@@ -24,7 +24,7 @@ export const CTASection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               size="lg"
-              className="bg-background text-foreground hover:bg-background/90 text-lg px-8 py-6 rounded-full shadow-warm"
+              className="bg-background text-foreground hover:bg-background/90 text-lg px-8 py-6 rounded-full shadow-champagne"
             >
               🎉 Create My Birthday Page
             </Button>

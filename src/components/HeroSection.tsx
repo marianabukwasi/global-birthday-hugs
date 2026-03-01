@@ -16,7 +16,7 @@ export const HeroSection = () => {
           alt="People celebrating birthday together"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-background/85 backdrop-blur-sm" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -38,9 +38,9 @@ export const HeroSection = () => {
             </span>
           </motion.div>
 
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight text-foreground">
             Every Person Deserves{" "}
-            <span className="text-gradient-hero">To Be Celebrated</span>
+            <span className="text-gradient-champagne">To Be Celebrated</span>
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 font-sans">
@@ -51,7 +51,7 @@ export const HeroSection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
             <Button
               size="lg"
-              className="bg-gradient-hero text-primary-foreground border-0 hover:opacity-90 text-lg px-8 py-6 rounded-full shadow-warm animate-pulse-glow"
+              className="bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90 text-lg px-8 py-6 rounded-full shadow-champagne animate-pulse-glow"
             >
               🎉 Join Birthday CORE — $2
             </Button>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
 const COLORS = [
-  "bg-primary", "bg-secondary", "bg-accent", "bg-coral",
-  "bg-gold", "bg-confetti-pink", "bg-confetti-blue", "bg-confetti-green",
+  "bg-champagne", "bg-champagne-light", "bg-champagne-glow",
+  "bg-atmosphere-sage", "bg-atmosphere-burnt", "bg-atmosphere-lavender",
+  "bg-atmosphere-rose", "bg-atmosphere-ocean",
 ];
 
 interface ConfettiPiece {
@@ -34,7 +35,7 @@ export const Confetti = () => {
       {pieces.map((p) => (
         <div
           key={p.id}
-          className={`absolute rounded-sm ${p.color} opacity-60`}
+          className={`absolute rounded-sm ${p.color} opacity-40`}
           style={{
             left: `${p.left}%`,
             width: `${p.size}px`,
