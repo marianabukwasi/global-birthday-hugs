@@ -1,43 +1,52 @@
-import { Cake } from "lucide-react";
 import { Link } from "react-router-dom";
+import { PartyPopper } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-card border-t border-border py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8">
+    <footer className="border-t border-border bg-muted/30">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-full bg-gradient-champagne flex items-center justify-center">
-                <Cake className="w-4 h-4 text-primary-foreground" />
+            <Link to="/" className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gradient-celebration flex items-center justify-center">
+                <PartyPopper className="w-4 h-4 text-primary-foreground" />
               </div>
-              <span className="font-display text-lg font-bold">Birthday CORE</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Celebrating Our Real Existence. Every person deserves to be celebrated.
-            </p>
+              <span className="font-display text-lg font-bold text-foreground">
+                Birthday<span className="text-gradient-celebration">CORE</span>
+              </span>
+            </Link>
+            <p className="text-sm text-muted-foreground">Making birthdays magical, one celebration at a time.</p>
           </div>
-          {[
-            { title: "Platform", links: ["How It Works", "Discover", "Giving Ranks", "Gift Experiences"] },
-            { title: "Company", links: ["About", "Partners", "Careers", "Press"] },
-            { title: "Support", links: ["Help Center", "Privacy Policy", "Terms of Service", "Contact"] },
-          ].map((col) => (
-            <div key={col.title}>
-              <h4 className="font-display font-semibold text-foreground mb-4">{col.title}</h4>
-              <ul className="space-y-2">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <Link to="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                      {link}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+
+          <div>
+            <h4 className="font-display font-semibold text-foreground mb-3">Platform</h4>
+            <div className="space-y-2">
+              <Link to="/discover" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Discover</Link>
+              <Link to="/global" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Global Dashboard</Link>
+              <Link to="/demos" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Demos</Link>
             </div>
-          ))}
+          </div>
+
+          <div>
+            <h4 className="font-display font-semibold text-foreground mb-3">Features</h4>
+            <div className="space-y-2">
+              <Link to="/send-wish" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Send Wishes</Link>
+              <Link to="/spins" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Birthday Spins</Link>
+              <Link to="/timeline" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Timeline</Link>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="font-display font-semibold text-foreground mb-3">Account</h4>
+            <div className="space-y-2">
+              <Link to="/auth" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Sign In</Link>
+              <Link to="/profile-setup" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Profile</Link>
+            </div>
+          </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          © 2026 Birthday CORE. All rights reserved. Made with ❤️ for every birthday.
+
+        <div className="border-t border-border mt-8 pt-8 text-center">
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} BirthdayCORE. Celebrating life, globally.</p>
         </div>
       </div>
     </footer>

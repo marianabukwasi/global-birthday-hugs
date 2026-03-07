@@ -1,30 +1,56 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Cake, Menu, X, Search, Globe } from "lucide-react";
+import { PartyPopper, Menu, X, LogOut, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const links = [
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    supabase.auth.getSession().then(({ data: { session } }) => setUser(session?.user ?? null));
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
+
+  const publicLinks = [
     { to: "/", label: "Home" },
     { to: "/discover", label: "Discover" },
-    { to: "/how-it-works", label: "How It Works" },
-    { to: "/ranks", label: "Giving Ranks" },
+    { to: "/global", label: "Global" },
     { to: "/demos", label: "Demos" },
   ];
 
+  const authLinks = [
+    { to: "/dashboard", label: "Dashboard" },
+    { to: "/discover", label: "Discover" },
+    { to: "/send-wish", label: "Send Wish" },
+    { to: "/spins", label: "Spins" },
+    { to: "/timeline", label: "Timeline" },
+    { to: "/global", label: "Global" },
+  ];
+
+  const links = user ? authLinks : publicLinks;
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-full bg-gradient-champagne flex items-center justify-center">
-            <Cake className="w-5 h-5 text-primary-foreground" />
+        <Link to={user ? "/dashboard" : "/"} className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-xl bg-gradient-celebration flex items-center justify-center shadow-glow-pink">
+            <PartyPopper className="w-5 h-5 text-primary-foreground" />
           </div>
           <span className="font-display text-xl font-bold text-foreground">
-            Birthday <span className="text-gradient-champagne">CORE</span>
+            Birthday<span className="text-gradient-celebration">CORE</span>
           </span>
         </Link>
 
@@ -44,18 +70,25 @@ export const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" size="icon">
-            <Search className="w-4 h-4" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Globe className="w-4 h-4" />
-          </Button>
-          <Button variant="outline" size="sm">
-            Sign In
-          </Button>
-          <Button size="sm" className="bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90">
-            Join — $2
-          </Button>
+          {user ? (
+            <>
+              <Button variant="ghost" size="sm" onClick={() => navigate("/profile-setup")}>
+                <User className="w-4 h-4 mr-1" /> Profile
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleSignOut}>
+                <LogOut className="w-4 h-4 mr-1" /> Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="outline" size="sm" onClick={() => navigate("/auth")}>
+                Sign In
+              </Button>
+              <Button size="sm" className="bg-gradient-celebration text-primary-foreground border-0 hover:opacity-90" onClick={() => navigate("/auth")}>
+                Join Free
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile toggle */}
@@ -71,7 +104,7 @@ export const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-b border-border"
+            className="md:hidden glass-strong border-t border-border"
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
               {links.map((link) => (
@@ -87,8 +120,17 @@ export const Navbar = () => {
                 </Link>
               ))}
               <div className="flex gap-2 pt-2">
-                <Button variant="outline" size="sm" className="flex-1">Sign In</Button>
-                <Button size="sm" className="flex-1 bg-gradient-champagne text-primary-foreground border-0">Join — $2</Button>
+                {user ? (
+                  <>
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => { navigate("/profile-setup"); setIsOpen(false); }}>Profile</Button>
+                    <Button size="sm" className="flex-1" variant="outline" onClick={handleSignOut}>Sign Out</Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => { navigate("/auth"); setIsOpen(false); }}>Sign In</Button>
+                    <Button size="sm" className="flex-1 bg-gradient-celebration text-primary-foreground border-0" onClick={() => { navigate("/auth"); setIsOpen(false); }}>Join Free</Button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
