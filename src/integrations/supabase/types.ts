@@ -14,7 +14,219 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      birthday_pages: {
+        Row: {
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      contributions: {
+        Row: {
+          amount_cents: number
+          birthday_year: number
+          created_at: string
+          id: string
+          message: string | null
+          recipient_id: string
+          sender_id: string
+          status: string | null
+        }
+        Insert: {
+          amount_cents?: number
+          birthday_year: number
+          created_at?: string
+          id?: string
+          message?: string | null
+          recipient_id: string
+          sender_id: string
+          status?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          birthday_year?: number
+          created_at?: string
+          id?: string
+          message?: string | null
+          recipient_id?: string
+          sender_id?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
+      global_stats: {
+        Row: {
+          id: number
+          total_contributions_cents: number | null
+          total_spins: number | null
+          total_users: number | null
+          total_wishes: number | null
+          updated_at: string
+        }
+        Insert: {
+          id?: number
+          total_contributions_cents?: number | null
+          total_spins?: number | null
+          total_users?: number | null
+          total_wishes?: number | null
+          updated_at?: string
+        }
+        Update: {
+          id?: number
+          total_contributions_cents?: number | null
+          total_spins?: number | null
+          total_users?: number | null
+          total_wishes?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          age: number | null
+          avatar_url: string | null
+          bio: string | null
+          country: string | null
+          created_at: string
+          email: string | null
+          favorite_color: string | null
+          full_name: string
+          hobbies: string[] | null
+          id: string
+          interests: string[] | null
+          is_age_public: boolean | null
+          is_country_public: boolean | null
+          is_hobbies_public: boolean | null
+          is_name_public: boolean | null
+          preferred_name: string | null
+          updated_at: string
+        }
+        Insert: {
+          age?: number | null
+          avatar_url?: string | null
+          bio?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          favorite_color?: string | null
+          full_name?: string
+          hobbies?: string[] | null
+          id: string
+          interests?: string[] | null
+          is_age_public?: boolean | null
+          is_country_public?: boolean | null
+          is_hobbies_public?: boolean | null
+          is_name_public?: boolean | null
+          preferred_name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          age?: number | null
+          avatar_url?: string | null
+          bio?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          favorite_color?: string | null
+          full_name?: string
+          hobbies?: string[] | null
+          id?: string
+          interests?: string[] | null
+          is_age_public?: boolean | null
+          is_country_public?: boolean | null
+          is_hobbies_public?: boolean | null
+          is_name_public?: boolean | null
+          preferred_name?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      spins: {
+        Row: {
+          birthday_year: number
+          created_at: string
+          id: string
+          is_claimed: boolean | null
+          partner_name: string | null
+          prize_description: string | null
+          prize_name: string | null
+          spin_type: string
+          user_id: string
+        }
+        Insert: {
+          birthday_year: number
+          created_at?: string
+          id?: string
+          is_claimed?: boolean | null
+          partner_name?: string | null
+          prize_description?: string | null
+          prize_name?: string | null
+          spin_type?: string
+          user_id: string
+        }
+        Update: {
+          birthday_year?: number
+          created_at?: string
+          id?: string
+          is_claimed?: boolean | null
+          partner_name?: string | null
+          prize_description?: string | null
+          prize_name?: string | null
+          spin_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wishes: {
+        Row: {
+          birthday_year: number
+          created_at: string
+          id: string
+          image_url: string | null
+          message: string | null
+          recipient_id: string
+          sender_id: string
+          video_url: string | null
+        }
+        Insert: {
+          birthday_year: number
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          message?: string | null
+          recipient_id: string
+          sender_id: string
+          video_url?: string | null
+        }
+        Update: {
+          birthday_year?: number
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          message?: string | null
+          recipient_id?: string
+          sender_id?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
