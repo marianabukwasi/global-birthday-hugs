@@ -13,6 +13,7 @@ export const Navbar = () => {
     { to: "/discover", label: "Discover" },
     { to: "/how-it-works", label: "How It Works" },
     { to: "/ranks", label: "Giving Ranks" },
+    { to: "/demos", label: "Demos" },
   ];
 
   return (
