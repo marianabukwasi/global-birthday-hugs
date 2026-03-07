@@ -8,6 +8,7 @@ import Discover from "./pages/Discover";
 import Profile from "./pages/Profile";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import RanksPage from "./pages/RanksPage";
+import BirthdayPostcard from "./pages/BirthdayPostcard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/ranks" element={<RanksPage />} />
+          <Route path="/postcard/:id" element={<BirthdayPostcard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
