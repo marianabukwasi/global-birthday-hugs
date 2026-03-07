@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Syne"', 'sans-serif'],
-        sans: ['"Space Grotesk"', 'sans-serif'],
+        display: ['"Playfair Display"', 'serif'],
+        sans: ['"DM Sans"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -50,6 +50,24 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        champagne: {
+          DEFAULT: "hsl(var(--champagne))",
+          light: "hsl(var(--champagne-light))",
+          glow: "hsl(var(--champagne-glow))",
+        },
+        bone: "hsl(var(--bone))",
+        slate: {
+          DEFAULT: "hsl(var(--slate))",
+          muted: "hsl(var(--slate-muted))",
+        },
+        atmosphere: {
+          sage: "hsl(var(--atmosphere-sage))",
+          burnt: "hsl(var(--atmosphere-burnt))",
+          ocean: "hsl(var(--atmosphere-ocean))",
+          lavender: "hsl(var(--atmosphere-lavender))",
+          rose: "hsl(var(--atmosphere-rose))",
+          amber: "hsl(var(--atmosphere-amber))",
         },
         celebration: {
           pink: "hsl(var(--celebration-pink))",
@@ -93,16 +111,12 @@ export default {
           "100%": { transform: "translateY(100vh) rotate(720deg)", opacity: "0" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(330 85% 60% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(330 85% 60% / 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(40 45% 58% / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(40 45% 58% / 0.6)" },
         },
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
-        },
-        "shimmer": {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
         },
       },
       animation: {
@@ -112,7 +126,6 @@ export default {
         "confetti-fall": "confetti-fall 4s linear infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "spin-slow": "spin-slow 20s linear infinite",
-        "shimmer": "shimmer 2s linear infinite",
       },
     },
   },
