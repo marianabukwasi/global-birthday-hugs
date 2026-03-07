@@ -6,20 +6,59 @@ import { VideoCompilation } from "@/components/postcard/VideoCompilation";
 import { motion } from "framer-motion";
 import { Cake, PartyPopper } from "lucide-react";
 
-// Pool of contributor photos for demos
+// Large pool of random photos (objects, nature, food, places — NOT people)
 const photoPool = [
-  "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop",
-  "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop",
+  "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200&h=200&fit=crop", // ocean wave
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=200&h=200&fit=crop", // mountain
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200&h=200&fit=crop", // beach
+  "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=200&h=200&fit=crop", // flowers
+  "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=200&h=200&fit=crop", // food plate
+  "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=200&h=200&fit=crop", // balloons
+  "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=200&h=200&fit=crop", // confetti
+  "https://images.unsplash.com/photo-1488722796624-0aa6f1bb6399?w=200&h=200&fit=crop", // sunset sky
+  "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=200&h=200&fit=crop", // art painting
+  "https://images.unsplash.com/photo-1495195134817-aeb325a55b65?w=200&h=200&fit=crop", // cake
+  "https://images.unsplash.com/photo-1501959915551-4e8d30928317?w=200&h=200&fit=crop", // candles
+  "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=200&h=200&fit=crop", // yellow cup
+  "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=200&h=200&fit=crop", // pink roses
+  "https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=200&h=200&fit=crop", // cozy room
+  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&h=200&fit=crop", // gourmet food
+  "https://images.unsplash.com/photo-1486427944544-d2c246c4df14?w=200&h=200&fit=crop", // fireworks
+  "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=200&h=200&fit=crop", // abstract color
+  "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=200&h=200&fit=crop", // field
+  "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=200&h=200&fit=crop", // lake
+  "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=200&h=200&fit=crop", // misty forest
+  "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1?w=200&h=200&fit=crop", // tropical sea
+  "https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=200&h=200&fit=crop", // interior
+  "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=200&h=200&fit=crop", // fruit bowl
+  "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=200&h=200&fit=crop", // sparklers
+];
+
+const birthdayQuotes = [
+  "You're not old, you're vintage! 🎉",
+  "Another trip around the sun ☀️",
+  "Aging like fine wine 🍷",
+  "Born to sparkle ✨",
+  "Here's to another year of greatness 🥂",
+  "Age is just a number 💫",
+  "Forever young at heart 💛",
+  "Cheers to you! 🎂",
+  "Make a wish! 🌟",
+  "Life begins at your age 🌈",
+  "You glow differently when you're happy 🌻",
+  "The best is yet to come 🚀",
+  "Keep shining, superstar ⭐",
+  "Celebrate every moment 🎊",
+  "Dream big, birthday human 🌙",
+  "You're a masterpiece 🎨",
+  "Stay golden 🏆",
+  "Joy looks beautiful on you 😊",
+  "More candles = more light 🕯️",
+  "Today is YOUR day 🎁",
+  "Legend since day one 👑",
+  "Pure magic 🪄",
+  "Too blessed to be stressed 🙏",
+  "Keep being amazing 💎",
 ];
 
 const demos = [
@@ -57,32 +96,54 @@ const demos = [
   },
 ];
 
-const makeSlideshow = (name: string) =>
-  photoPool.slice(0, 6).map((url, i) => ({
-    id: `s-${name}-${i}`,
-    name: ["Maria", "Chen", "Aisha", "Erik", "Fatou", "Liam"][i],
-    country: ["Brazil 🇧🇷", "China 🇨🇳", "India 🇮🇳", "Sweden 🇸🇪", "Senegal 🇸🇳", "Ireland 🇮🇪"][i],
-    photoUrl: url,
-    message: [
-      "Happy birthday! Wishing you all the joy! 🎉",
-      "May this year bring endless happiness!",
-      "Celebrating you from across the ocean! 🌊",
-      "Grattis på födelsedagen! 🎂",
-      "Your existence matters! 💛",
-      "Another year of being brilliant!",
+const makeSlideshow = (demoIndex: number) =>
+  photoPool.slice(0, 8).map((url, i) => ({
+    id: `s-${demoIndex}-${i}`,
+    name: `Contributor ${i + 1}`,
+    country: [
+      "Brazil 🇧🇷", "China 🇨🇳", "India 🇮🇳", "Sweden 🇸🇪",
+      "Senegal 🇸🇳", "Ireland 🇮🇪", "Japan 🇯🇵", "Argentina 🇦🇷",
     ][i],
+    photoUrl: photoPool[(demoIndex * 5 + i) % photoPool.length],
+    message: birthdayQuotes[(demoIndex * 3 + i) % birthdayQuotes.length],
   }));
 
-const makeVideos = (name: string) =>
-  photoPool.slice(0, 3).map((url, i) => ({
-    id: `v-${name}-${i}`,
-    name: ["Maria Santos", "Chen Wei", "Aisha Patel"][i],
-    country: ["Brazil 🇧🇷", "China 🇨🇳", "India 🇮🇳"][i],
-    videoUrl: "",
-    thumbnailUrl: url,
-    durationSeconds: [15, 22, 10][i],
-    message: ["A dance for you!", "Wishes from afar", "Quick shoutout!"][i],
-  }));
+const multilingualBirthdayClips = [
+  { name: "Sofia García", country: "Spain 🇪🇸", language: "Spanish", greeting: "¡Feliz cumpleaños!" },
+  { name: "Hiroshi Yamamoto", country: "Japan 🇯🇵", language: "Japanese", greeting: "お誕生日おめでとう!" },
+  { name: "Pierre Dupont", country: "France 🇫🇷", language: "French", greeting: "Joyeux anniversaire!" },
+  { name: "Anna Müller", country: "Germany 🇩🇪", language: "German", greeting: "Alles Gute zum Geburtstag!" },
+  { name: "Priya Sharma", country: "India 🇮🇳", language: "Hindi", greeting: "जन्मदिन मुबारक!" },
+  { name: "Ahmed Hassan", country: "Egypt 🇪🇬", language: "Arabic", greeting: "!عيد ميلاد سعيد" },
+  { name: "Li Wei", country: "China 🇨🇳", language: "Mandarin", greeting: "生日快乐!" },
+  { name: "Olga Ivanova", country: "Russia 🇷🇺", language: "Russian", greeting: "С днём рождения!" },
+  { name: "Fatima Zahra", country: "Morocco 🇲🇦", language: "Darija", greeting: "عيد ميلاد سعيد!" },
+  { name: "Kim Soo-jin", country: "South Korea 🇰🇷", language: "Korean", greeting: "생일 축하해요!" },
+  { name: "Marco Rossi", country: "Italy 🇮🇹", language: "Italian", greeting: "Buon compleanno!" },
+  { name: "Cláudia Silva", country: "Portugal 🇵🇹", language: "Portuguese", greeting: "Feliz aniversário!" },
+  { name: "Nkechi Obi", country: "Nigeria 🇳🇬", language: "Igbo", greeting: "Ụbọchị ọmụmụ ọma!" },
+  { name: "Sven Eriksson", country: "Sweden 🇸🇪", language: "Swedish", greeting: "Grattis på födelsedagen!" },
+  { name: "Thandi Moyo", country: "South Africa 🇿🇦", language: "Zulu", greeting: "Usuku oluhle lokuzalwa!" },
+  { name: "Piotr Kowalski", country: "Poland 🇵🇱", language: "Polish", greeting: "Wszystkiego najlepszego!" },
+];
+
+const makeVideos = (demoIndex: number) => {
+  const start = (demoIndex * 4) % multilingualBirthdayClips.length;
+  const clips = [];
+  for (let i = 0; i < 6; i++) {
+    const clip = multilingualBirthdayClips[(start + i) % multilingualBirthdayClips.length];
+    clips.push({
+      id: `v-${demoIndex}-${i}`,
+      name: clip.name,
+      country: clip.country,
+      videoUrl: "",
+      thumbnailUrl: photoPool[(demoIndex * 3 + i * 2) % photoPool.length],
+      durationSeconds: 30,
+      message: `"${clip.greeting}" — Happy Birthday in ${clip.language}`,
+    });
+  }
+  return clips;
+};
 
 const DemoPostcards = () => {
   return (
@@ -106,7 +167,7 @@ const DemoPostcards = () => {
               Birthday Cards That Form Your Age
             </h1>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Every contributor's photo becomes a pixel in the mosaic of your age. Here are 4 demos showing how it looks.
+              Random photos from contributors form a mosaic of your age, each carrying a birthday quote. Videos compile 30-second greetings in languages from around the world.
             </p>
           </motion.div>
 
@@ -149,19 +210,19 @@ const DemoPostcards = () => {
                   <AgeCollage age={demo.age} photos={photoPool} name={demo.name} />
                 </div>
 
-                {/* Slideshow */}
+                {/* Slideshow with quotes on images */}
                 <div className="mb-6">
                   <PhotoSlideshow
-                    photos={makeSlideshow(demo.name)}
+                    photos={makeSlideshow(demoIndex)}
                     birthdayName={demo.name}
                     autoPlayInterval={3000 + demoIndex * 500}
                   />
                 </div>
 
-                {/* Video */}
+                {/* Video — multilingual birthday greetings */}
                 <div className="mb-6">
                   <VideoCompilation
-                    videos={makeVideos(demo.name)}
+                    videos={makeVideos(demoIndex)}
                     birthdayName={demo.name}
                   />
                 </div>
