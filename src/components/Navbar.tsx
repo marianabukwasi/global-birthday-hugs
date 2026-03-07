@@ -37,6 +37,7 @@ export const Navbar = () => {
     { to: "/send-wish", label: "Send Wish" },
     { to: "/spins", label: "Spins" },
     { to: "/timeline", label: "Timeline" },
+    { to: "/birthday-video", label: "Video" },
     { to: "/global", label: "Global" },
   ];
 
