@@ -62,6 +62,19 @@ const BirthdayRevealPage = () => {
           };
         });
         setGlobeWishes(mapped);
+
+        // Build card photos
+        const cardMapped: CardPhoto[] = wishes.map(w => {
+          const sp = profileMap.get(w.sender_id);
+          return {
+            imageURL: w.image_url || "",
+            country: sp?.country || "Unknown",
+            city: sp?.city || undefined,
+            senderName: sp?.full_name || "Anonymous",
+            quote: w.message || undefined,
+          };
+        });
+        setCardPhotos(cardMapped);
       }
     };
     load();
