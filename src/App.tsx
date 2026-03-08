@@ -11,6 +11,7 @@ import ProfileSetup from "./pages/ProfileSetup";
 import Discover from "./pages/Discover";
 import GlobalDashboard from "./pages/GlobalDashboard";
 import HowItWorksPage from "./pages/HowItWorksPage";
+import BirthdayReveal from "./pages/BirthdayReveal";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
