@@ -6,9 +6,10 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Image, Video, Sparkles } from "lucide-react";
+import { Video, Sparkles } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { BirthdayCoreGlobe, GlobeWish } from "@/components/reveal/BirthdayCoreGlobe";
+import { BirthdayCard, CardPhoto } from "@/components/reveal/BirthdayCard";
 
 const BirthdayRevealPage = () => {
   const navigate = useNavigate();
