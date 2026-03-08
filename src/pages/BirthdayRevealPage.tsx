@@ -128,20 +128,23 @@ const BirthdayRevealPage = () => {
             />
           </motion.div>
 
-          {/* Section 2 — Birthday Card / Mosaic placeholder */}
+          {/* Section 2 — Birthday Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="rounded-2xl bg-card border border-border overflow-hidden mb-6"
+            className="rounded-2xl bg-card border border-border overflow-hidden mb-6 p-4"
           >
-            <div className="aspect-video bg-gradient-to-b from-secondary to-card flex flex-col items-center justify-center backdrop-blur-sm">
-              <Image className="w-20 h-20 text-celebration-cyan/40 mb-4" />
-              <p className="text-foreground font-medium mb-1">Your Birthday Card is being assembled...</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                WORLD CARD — Developer component will be inserted here
-              </p>
+            <div className="text-center mb-4">
+              <h2 className="font-display text-2xl font-bold text-foreground mb-1">Your Birthday Card</h2>
+              <p className="text-sm text-muted-foreground">{cardPhotos.length} photos form the number {age}</p>
             </div>
+            <BirthdayCard
+              photos={cardPhotos}
+              age={age}
+              colorPalette={profile?.core_color || "#F5C842"}
+              onComplete={() => {}}
+            />
           </motion.div>
 
           {/* Section 3 — Birthday Video placeholder */}
