@@ -129,7 +129,7 @@ export const BirthdayVideoPlayer = ({
               <div className="text-5xl mb-4">🎉</div>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-3">
                 Celebrated by{" "}
-                <span className="text-gradient-champagne">{wishes.length} people</span>
+                <span className="text-gradient-gold">{wishes.length} people</span>
               </h2>
               <p className="text-lg text-muted-foreground">
                 from{" "}
