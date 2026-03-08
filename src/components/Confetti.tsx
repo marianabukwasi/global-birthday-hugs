@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const COLORS = [
-  "bg-champagne", "bg-champagne-light", "bg-champagne-glow",
+  "bg-primary", "bg-gold-light", "bg-gold-glow",
   "bg-atmosphere-sage", "bg-atmosphere-burnt", "bg-atmosphere-lavender",
   "bg-atmosphere-rose", "bg-atmosphere-ocean",
 ];

@@ -169,7 +169,7 @@ const Profile = () => {
                 className="mb-4 bg-background"
               />
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button className="flex-1 bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90 rounded-full py-6">
+                <Button className="flex-1 bg-gradient-gold text-primary-foreground border-0 hover:opacity-90 rounded-full py-6">
                   🎂 Contribute $1 + Message
                 </Button>
                 <Button variant="outline" className="rounded-full py-6">

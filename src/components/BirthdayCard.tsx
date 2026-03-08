@@ -65,7 +65,7 @@ export const BirthdayCard = ({
         </div>
 
         <Link to={`/profile/${id}`}>
-          <Button size="sm" className="w-full bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90 rounded-full">
+          <Button size="sm" className="w-full bg-gradient-gold text-primary-foreground border-0 hover:opacity-90 rounded-full">
             🎉 Contribute $1
           </Button>
         </Link>

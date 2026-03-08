@@ -150,7 +150,7 @@ export const BirthdayVideoPlayer = ({
         {scene === "idle" ? (
           <Button
             onClick={handlePlay}
-            className="bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90"
+            className="bg-gradient-gold text-primary-foreground border-0 hover:opacity-90"
           >
             <Play className="w-4 h-4 mr-2" /> Play Birthday Video
           </Button>

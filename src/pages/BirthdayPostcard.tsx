@@ -19,7 +19,7 @@ const BirthdayPostcard = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <div className="pt-16">
-        <div className="h-2 bg-gradient-champagne" />
+        <div className="h-1 bg-gradient-gold" />
 
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-3xl mx-auto">
