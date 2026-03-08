@@ -67,7 +67,7 @@ export const BirthdayCertificate = ({
           <p className="text-sm text-muted-foreground mb-4">{date}</p>
 
           {/* Watermark */}
-          <p className="text-xs text-muted-foreground italic">
+          <p className="text-xs text-white/40 italic">
             Recognized by {watermarkCount} {watermarkCount === 1 ? "person" : "people"} on BirthdayCORE
           </p>
         </div>

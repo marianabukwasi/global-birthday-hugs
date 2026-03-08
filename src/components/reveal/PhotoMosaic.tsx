@@ -207,7 +207,7 @@ export const PhotoMosaic = ({ tiles, age, watermarkCount, isTeaser = false }: Ph
 
       {/* Watermark */}
       <div className="text-center mt-6">
-        <p className="text-xs text-muted-foreground italic">
+        <p className="text-xs text-white/40 italic">
           Recognized by {watermarkCount} {watermarkCount === 1 ? "person" : "people"} on BirthdayCORE
         </p>
       </div>

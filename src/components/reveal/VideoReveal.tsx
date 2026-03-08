@@ -71,7 +71,7 @@ export const VideoReveal = ({ videoUrl, watermarkCount, isTeaser = false, onUnlo
 
       {/* Download + watermark */}
       <div className="flex items-center justify-between mt-4">
-        <p className="text-xs text-muted-foreground italic">
+        <p className="text-xs text-white/40 italic">
           Recognized by {watermarkCount} {watermarkCount === 1 ? "person" : "people"} on BirthdayCORE
         </p>
         {videoUrl && !isTeaser && (
