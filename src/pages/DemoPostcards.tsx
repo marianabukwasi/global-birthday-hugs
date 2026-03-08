@@ -5,7 +5,7 @@ import { PhotoSlideshow } from "@/components/postcard/PhotoSlideshow";
 import { VideoCompilation } from "@/components/postcard/VideoCompilation";
 import { BirthdayVideoPlayer, type BirthdayWish } from "@/components/video/BirthdayVideoPlayer";
 import { motion } from "framer-motion";
-import { Cake, PartyPopper, Film } from "lucide-react";
+import { Cake, Sparkles, Film } from "lucide-react";
 
 const photoPool = [
   "https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200&h=200&fit=crop",
@@ -80,7 +80,6 @@ const makeVideos = (demoIndex: number) => {
   });
 };
 
-// Generate birthday video wishes for each demo
 const makeBirthdayVideoWishes = (demoIndex: number): BirthdayWish[] => {
   const countries = ["Brazil", "Japan", "Senegal", "Sweden", "India", "United Kingdom", "Ghana", "Argentina", "Australia", "Egypt", "Germany", "Nigeria"];
   const names = ["Maria Santos", "Hiroshi Tanaka", "Amina Diallo", "Erik Johansson", "Priya Sharma", "James O'Brien", "Fatou Sow", "Lucas Martinez", "Yuki Chen", "Ahmed Hassan", "Sophie Müller", "Kwame Asante"];
@@ -108,20 +107,20 @@ const DemoPostcards = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <div className="pt-16">
-        <div className="h-2 bg-gradient-champagne" />
+        <div className="h-1 bg-gradient-gold" />
 
         <div className="container mx-auto px-4 py-12">
           {/* Header */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-1.5 mb-4">
-              <PartyPopper className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Demo Postcards</span>
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-sm font-medium text-primary">Demo Experience</span>
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-3">
-              Birthday Cards That Form Your Age
+              The Birthday <span className="text-gradient-gold">Reveal</span>
             </h1>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              Age mosaics, photo slideshows, multilingual video greetings, and auto-generated birthday videos with a 3D globe.
+              3D globe videos, age mosaics, photo slideshows, and multilingual greetings — see BirthdayCORE in action.
             </p>
           </motion.div>
 
@@ -152,7 +151,7 @@ const DemoPostcards = () => {
                   "{demo.quote}"
                 </blockquote>
 
-                {/* Birthday Video — 3D Globe with photos/quotes ON the map */}
+                {/* Birthday Video — 3D Globe */}
                 <div className="mb-8">
                   <div className="flex items-center gap-2 mb-3">
                     <Film className="w-5 h-5 text-primary" />
@@ -185,7 +184,7 @@ const DemoPostcards = () => {
                 {demoIndex < demos.length - 1 && (
                   <div className="flex items-center gap-4 mt-10">
                     <div className="flex-1 h-px bg-border" />
-                    <span className="text-muted-foreground text-sm">✦</span>
+                    <span className="text-primary text-sm">✦</span>
                     <div className="flex-1 h-px bg-border" />
                   </div>
                 )}

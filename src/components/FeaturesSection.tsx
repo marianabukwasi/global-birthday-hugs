@@ -10,12 +10,12 @@ const features = [
   {
     icon: Heart,
     title: "Personal Messages",
-    desc: "Every $1 contribution comes with a photo and heartfelt message from the giver.",
+    desc: "Every contribution comes with a photo and heartfelt message from the giver.",
   },
   {
     icon: Gift,
-    title: "Gift Experiences",
-    desc: "Spin the gift wheel for local birthday experiences — hotel stays, dinners, adventures.",
+    title: "Glimmer Draw",
+    desc: "Spin the gift wheel for birthday experiences — gift cards, hotel stays, adventures.",
   },
   {
     icon: Shield,
@@ -24,13 +24,13 @@ const features = [
   },
   {
     icon: Sparkles,
-    title: "Birthday Postcards",
-    desc: "Receive a beautiful digital postcard with all contributors, messages, and photos.",
+    title: "Birthday Video & Mosaic",
+    desc: "Receive a cinematic birthday video with a 3D globe and an age-shaped photo mosaic.",
   },
   {
     icon: Users,
-    title: "Referral Growth",
-    desc: "Share your unique referral code and QR to grow your birthday celebration network.",
+    title: "Giving Recognition",
+    desc: "Earn Bronze, Silver, Gold, and Diamond stars for your generosity on the platform.",
   },
 ];
 
@@ -46,7 +46,7 @@ export const FeaturesSection = () => {
         >
           <span className="text-4xl mb-4 block">🌍</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            More Than Just Money
+            More Than Just <span className="text-gradient-gold">Wishes</span>
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             A celebration platform built on connection, not transaction.
@@ -61,9 +61,9 @@ export const FeaturesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-champagne transition-all hover:-translate-y-1"
+              className="bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-glow-gold transition-all hover:-translate-y-1"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-champagne flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-gold flex items-center justify-center mb-4">
                 <f.icon className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-display text-lg font-semibold text-foreground mb-2">{f.title}</h3>
