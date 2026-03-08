@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import GiverSignup from "./pages/GiverSignup";
+import ReceiverSignup from "./pages/ReceiverSignup";
 import Dashboard from "./pages/Dashboard";
 import ProfileSetup from "./pages/ProfileSetup";
 import Discover from "./pages/Discover";
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/join" element={<GiverSignup />} />
+          <Route path="/setup" element={<ReceiverSignup />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile-setup" element={<ProfileSetup />} />
           <Route path="/discover" element={<Discover />} />
