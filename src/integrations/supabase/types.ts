@@ -230,6 +230,36 @@ export type Database = {
         }
         Relationships: []
       }
+      wish_reports: {
+        Row: {
+          created_at: string
+          details: string | null
+          id: string
+          reason: string
+          reporter_id: string
+          status: string
+          wish_id: string
+        }
+        Insert: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason?: string
+          reporter_id: string
+          status?: string
+          wish_id: string
+        }
+        Update: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason?: string
+          reporter_id?: string
+          status?: string
+          wish_id?: string
+        }
+        Relationships: []
+      }
       wishes: {
         Row: {
           birthday_year: number
