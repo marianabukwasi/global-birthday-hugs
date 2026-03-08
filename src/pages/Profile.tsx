@@ -142,7 +142,7 @@ const Profile = () => {
               </div>
               <div className="h-3 bg-muted rounded-full overflow-hidden mb-3">
                 <motion.div
-                  className="h-full bg-gradient-champagne rounded-full"
+                  className="h-full bg-gradient-gold rounded-full"
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 1, delay: 0.5 }}
