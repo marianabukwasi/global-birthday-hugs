@@ -26,6 +26,10 @@ import CashoutFlow from "./pages/CashoutFlow";
 import NotificationSettings from "./pages/NotificationSettings";
 import CartPage from "./pages/CartPage";
 import OffersAdmin from "./pages/OffersAdmin";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Support from "./pages/Support";
+import { CookieConsent } from "./components/CookieConsent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
