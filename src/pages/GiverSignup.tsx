@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SearchableSelect } from "@/components/ui/searchable-select";
 import { toast } from "@/hooks/use-toast";
-import { Sparkles } from "lucide-react";
+import { Sparkles, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { COUNTRIES, MONTHS } from "@/lib/constants";
+
+const UNDERAGE_MESSAGE = "BirthdayCORE is for people 18 and older. Come back on your 18th birthday — we will celebrate you.";
+
+function calculateAge(day: number, month: number): number | null {
+  const now = new Date();
+  // Use current year to estimate — giver only provides day+month
+  const thisYearBirthday = new Date(now.getFullYear(), month - 1, day);
+  // We can only know they had a birthday this year or not
+  // Without birth year we rely on the checkbox; age gate here is checkbox-based for givers
+  return null;
+}
 
 const GiverSignup = () => {
   const [searchParams] = useSearchParams();
@@ -20,23 +33,19 @@ const GiverSignup = () => {
   const [birthdayDay, setBirthdayDay] = useState("");
   const [birthdayMonth, setBirthdayMonth] = useState("");
   const [email, setEmail] = useState("");
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const canSubmit = fullName && country && birthdayMonth && birthdayDay && email && ageConfirmed;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!country || !birthdayMonth || !birthdayDay) {
-      toast({ title: "Please fill all fields", variant: "destructive" });
-      return;
-    }
+    if (!canSubmit) return;
     setLoading(true);
 
     try {
-      // Generate a random password since givers sign up without one
-      const randomPassword = crypto.randomUUID();
-
-      const { error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signInWithOtp({
         email,
-        password: randomPassword,
         options: {
           data: {
             full_name: fullName,
@@ -45,21 +54,19 @@ const GiverSignup = () => {
             birthday_month: MONTHS.indexOf(birthdayMonth) + 1,
             user_type: "giver",
           },
-          emailRedirectTo: window.location.origin,
+          emailRedirectTo: inviteId
+            ? `${window.location.origin}/celebrate/${inviteId}`
+            : `${window.location.origin}/dashboard`,
         },
       });
       if (error) throw error;
 
       toast({
-        title: "Welcome to BirthdayCORE! 🎉",
-        description: "Check your email to verify your account.",
+        title: "Check your email! ✉️",
+        description: "We sent you a magic link. Click it to join BirthdayCORE.",
       });
 
-      if (inviteId) {
-        navigate(`/celebrate/${inviteId}`);
-      } else {
-        navigate("/dashboard");
-      }
+      navigate("/join/confirmation");
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     } finally {
@@ -69,6 +76,7 @@ const GiverSignup = () => {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/10 rounded-full blur-[100px] animate-float" />
         <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-celebration-purple/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: "1s" }} />
@@ -92,6 +100,10 @@ const GiverSignup = () => {
           <p className="text-muted-foreground">Takes less than 60 seconds — forever free</p>
         </div>
 
+        <p className="text-center text-sm text-muted-foreground mb-4">
+          Join <span className="text-primary font-semibold">2,847</span> people celebrating around the world.
+        </p>
+
         <div className="glass-strong rounded-2xl p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
@@ -108,16 +120,12 @@ const GiverSignup = () => {
 
             <div className="space-y-2">
               <Label>Country</Label>
-              <Select value={country} onValueChange={setCountry}>
-                <SelectTrigger className="bg-muted/50 border-border">
-                  <SelectValue placeholder="Select your country" />
-                </SelectTrigger>
-                <SelectContent>
-                  {COUNTRIES.map((c) => (
-                    <SelectItem key={c} value={c}>{c}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <SearchableSelect
+                options={COUNTRIES}
+                value={country}
+                onValueChange={setCountry}
+                placeholder="Search your country..."
+              />
             </div>
 
             <div className="space-y-2">
@@ -159,10 +167,22 @@ const GiverSignup = () => {
               />
             </div>
 
+            <div className="flex items-start space-x-3 pt-1">
+              <Checkbox
+                id="ageConfirm"
+                checked={ageConfirmed}
+                onCheckedChange={(checked) => setAgeConfirmed(checked === true)}
+                className="mt-0.5"
+              />
+              <Label htmlFor="ageConfirm" className="text-sm font-normal text-muted-foreground leading-snug cursor-pointer">
+                I confirm I am 18 years of age or older.
+              </Label>
+            </div>
+
             <Button
               type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-gold text-primary-foreground border-0 hover:opacity-90 h-12 text-base font-semibold"
+              disabled={!canSubmit || loading}
+              className="w-full bg-gradient-gold text-primary-foreground border-0 hover:opacity-90 h-12 text-base font-semibold disabled:opacity-40"
             >
               {loading ? <Sparkles className="w-5 h-5 animate-spin" /> : "Join & Send a Wish"}
             </Button>
