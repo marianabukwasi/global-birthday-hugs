@@ -47,6 +47,11 @@ const App = () => (
           <Route path="/reveal/:userId" element={<BirthdayReveal />} />
           <Route path="/celebrate/:userId" element={<CelebratePage />} />
           <Route path="/offers" element={<BirthdayOffers />} />
+          <Route path="/birthday-reveal" element={<BirthdayRevealPage />} />
+          <Route path="/thank-you" element={<ThankYouFlow />} />
+          <Route path="/referral" element={<ReferralMoment />} />
+          <Route path="/cashout" element={<CashoutFlow />} />
+          <Route path="/settings/notifications" element={<NotificationSettings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
