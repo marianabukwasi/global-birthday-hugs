@@ -18,6 +18,7 @@ const BirthdayRevealPage = () => {
   const [countryCount, setCountryCount] = useState(0);
   const [donationAmount, setDonationAmount] = useState("");
   const [globeWishes, setGlobeWishes] = useState<GlobeWish[]>([]);
+  const [cardPhotos, setCardPhotos] = useState<CardPhoto[]>([]);
   const [globeComplete, setGlobeComplete] = useState(false);
 
   useEffect(() => {
