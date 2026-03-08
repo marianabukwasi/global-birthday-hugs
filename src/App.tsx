@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import GiverSignup from "./pages/GiverSignup";
 import ReceiverSignup from "./pages/ReceiverSignup";
+import CelebratePage from "./pages/CelebratePage";
 import Dashboard from "./pages/Dashboard";
 import ProfileSetup from "./pages/ProfileSetup";
 import Discover from "./pages/Discover";
