@@ -274,6 +274,7 @@ const Dashboard = () => {
                 { icon: Gift, label: "Glimmer Draw", desc: "Check your birthday prizes", to: "/dashboard", color: "bg-primary/20 text-primary" },
                 { icon: Calendar, label: "My Capsules", desc: "View past birthday capsules", to: "/dashboard", color: "bg-celebration-purple/20 text-celebration-purple" },
                 { icon: Globe, label: "Global Celebrations", desc: "See who's celebrating today", to: "/global", color: "bg-celebration-cyan/20 text-celebration-cyan" },
+                { icon: Tag, label: "Birthday Offers", desc: "Deals & discounts near you", to: "/offers", color: "bg-celebration-orange/20 text-celebration-orange" },
               ].map((action, i) => (
                 <motion.div key={action.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.05 }}>
                   <Link to={action.to} className="block glass rounded-xl p-5 hover:border-primary/30 transition-all group">
