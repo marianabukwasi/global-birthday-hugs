@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import {
   Gift, Globe, Users, Sparkles,
-  Send, Crown, TrendingUp, Calendar, Copy
+  Send, Crown, TrendingUp, Calendar, Copy, Tag
 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import WishVault from "@/components/dashboard/WishVault";
 import { BirthdayCountdown } from "@/components/dashboard/BirthdayCountdown";
 import ProfileSetupSection from "@/components/dashboard/ProfileSetupSection";
 import PhonePreview from "@/components/dashboard/PhonePreview";
+import GlimmerDraw from "@/components/dashboard/GlimmerDraw";
+import GivingRecognition from "@/components/profile/GivingRecognition";
+import BirthdayCapsules from "@/components/profile/BirthdayCapsules";
 
 const Dashboard = () => {
   const navigate = useNavigate();
