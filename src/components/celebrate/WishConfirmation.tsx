@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
-import { Heart, PartyPopper } from "lucide-react";
+import { Heart, PartyPopper, Globe } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface WishConfirmationProps {
   recipientName: string;
   accentColor: string;
+  senderCountry?: string;
 }
 
-const WishConfirmation = ({ recipientName, accentColor }: WishConfirmationProps) => {
+const WishConfirmation = ({ recipientName, accentColor, senderCountry }: WishConfirmationProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -36,21 +38,50 @@ const WishConfirmation = ({ recipientName, accentColor }: WishConfirmationProps)
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
-        className="text-white/60 text-lg max-w-md mx-auto mb-8"
+        transition={{ delay: 0.5 }}
+        className="text-white/60 text-lg max-w-md mx-auto mb-4"
       >
-        It will be revealed to {recipientName} on their birthday — as part of a celebration they'll never forget.
+        It will be revealed to {recipientName} on their birthday.
       </motion.p>
+
+      {senderCountry && (
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="text-white/40 text-sm flex items-center justify-center gap-1.5 mb-8"
+        >
+          <Globe className="w-3.5 h-3.5" />
+          Your wish from {senderCountry} will light up on their globe.
+        </motion.p>
+      )}
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="flex items-center justify-center gap-2 text-sm text-white/40"
+        transition={{ delay: 0.7 }}
+        className="flex items-center justify-center gap-2 text-sm text-white/40 mb-10"
       >
         <Heart className="w-4 h-4" style={{ color: accentColor }} />
         <span>You're part of something beautiful</span>
         <Heart className="w-4 h-4" style={{ color: accentColor }} />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9 }}
+        className="p-4 rounded-xl border border-white/10 max-w-sm mx-auto"
+        style={{ background: `${accentColor}08` }}
+      >
+        <p className="text-sm text-white/50 mb-2">Have your own birthday coming up?</p>
+        <Link
+          to="/setup"
+          className="text-sm font-medium hover:underline"
+          style={{ color: accentColor }}
+        >
+          Set up your birthday page →
+        </Link>
       </motion.div>
     </motion.div>
   );

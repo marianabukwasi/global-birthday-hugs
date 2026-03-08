@@ -4,11 +4,24 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
-import { Sparkles, Globe, Heart, Send, ArrowLeft } from "lucide-react";
+import { Sparkles, Globe, Heart, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import WishMediaUpload from "@/components/celebrate/WishMediaUpload";
 import GiftNudge from "@/components/celebrate/GiftNudge";
 import WishConfirmation from "@/components/celebrate/WishConfirmation";
+
+// Country flag emoji helper
+const getCountryFlag = (country: string): string => {
+  const flags: Record<string, string> = {
+    "United States": "🇺🇸", "United Kingdom": "🇬🇧", "Canada": "🇨🇦", "Australia": "🇦🇺",
+    "Germany": "🇩🇪", "France": "🇫🇷", "Japan": "🇯🇵", "Brazil": "🇧🇷", "India": "🇮🇳",
+    "Mexico": "🇲🇽", "Nigeria": "🇳🇬", "South Africa": "🇿🇦", "Kenya": "🇰🇪", "Ghana": "🇬🇭",
+    "Spain": "🇪🇸", "Italy": "🇮🇹", "South Korea": "🇰🇷", "Argentina": "🇦🇷",
+    "Egypt": "🇪🇬", "Turkey": "🇹🇷", "Ireland": "🇮🇪", "Netherlands": "🇳🇱",
+    "Switzerland": "🇨🇭", "Singapore": "🇸🇬", "New Zealand": "🇳🇿", "Portugal": "🇵🇹",
+  };
+  return flags[country] || "🌍";
+};
 
 interface ReceiverProfile {
   id: string;
@@ -29,8 +42,8 @@ const CelebratePage = () => {
   const [loading, setLoading] = useState(true);
   const [wishCount, setWishCount] = useState(0);
   const [countryCount, setCountryCount] = useState(0);
-  const [showForm, setShowForm] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [step, setStep] = useState<"landing" | "wish" | "gift" | "submitted">("landing");
+  const [senderCountry, setSenderCountry] = useState<string | undefined>();
 
   // Form state
   const [message, setMessage] = useState("");
@@ -46,20 +59,16 @@ const CelebratePage = () => {
     if (!userId) return;
     fetchProfile();
     fetchWishStats();
+    fetchSenderCountry();
   }, [userId]);
 
   const fetchProfile = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("profiles")
       .select("id, full_name, preferred_name, avatar_url, essence_photo_url, core_color, wish_prompt, birthday_day, birthday_month, country")
       .eq("id", userId!)
       .single();
-
-    if (error || !data) {
-      setLoading(false);
-      return;
-    }
-    setProfile(data);
+    if (data) setProfile(data);
     setLoading(false);
   };
 
@@ -70,23 +79,31 @@ const CelebratePage = () => {
       .select("sender_id")
       .eq("recipient_id", userId!)
       .eq("birthday_year", currentYear);
-
     if (data) {
       setWishCount(data.length);
-      // For country count, we'd need to join profiles — use a rough estimate
       const uniqueSenders = new Set(data.map((w) => w.sender_id));
-      setCountryCount(Math.min(uniqueSenders.size, Math.ceil(uniqueSenders.size * 0.7)));
+      setCountryCount(Math.min(uniqueSenders.size, Math.ceil(uniqueSenders.size * 0.7) || 0));
     }
   };
 
-  const handleSubmit = async () => {
+  const fetchSenderCountry = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: senderProfile } = await supabase.from("profiles").select("country").eq("id", user.id).single();
+      if (senderProfile?.country) setSenderCountry(senderProfile.country);
+    }
+  };
+
+  const isStep1Valid = message.trim().length >= 10;
+
+  const handleSubmit = async (withGift: boolean) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       toast({ title: "Please sign in first", description: "You need an account to send a wish.", variant: "destructive" });
       return;
     }
-    if (!message.trim()) {
-      toast({ title: "Write a message", description: "Your wish needs some words from the heart.", variant: "destructive" });
+    if (!isStep1Valid) {
+      toast({ title: "Write at least 10 characters", variant: "destructive" });
       return;
     }
 
@@ -98,16 +115,9 @@ const CelebratePage = () => {
       if (selectedFile && mediaType) {
         const ext = selectedFile.name.split(".").pop();
         const path = `${userId}/${user.id}-${Date.now()}.${ext}`;
-        const { error: uploadErr } = await supabase.storage
-          .from("wish-media")
-          .upload(path, selectedFile);
-
+        const { error: uploadErr } = await supabase.storage.from("wish-media").upload(path, selectedFile);
         if (uploadErr) throw uploadErr;
-
-        const { data: urlData } = supabase.storage
-          .from("wish-media")
-          .getPublicUrl(path);
-
+        const { data: urlData } = supabase.storage.from("wish-media").getPublicUrl(path);
         if (mediaType === "photo") imageUrl = urlData.publicUrl;
         else videoUrl = urlData.publicUrl;
       }
@@ -123,19 +133,18 @@ const CelebratePage = () => {
       });
       if (error) throw error;
 
-      // Handle contribution if gift amount > 0
-      if (giftAmount > 0) {
+      if (withGift && giftAmount > 0) {
         await supabase.from("contributions").insert({
           sender_id: user.id,
           recipient_id: userId!,
           birthday_year: currentYear,
           amount_cents: giftAmount * 100,
-          message: `Birthday gift with wish`,
-          status: "pending", // Will be processed when Stripe is connected
+          message: "Birthday gift with wish",
+          status: "pending",
         });
       }
 
-      setSubmitted(true);
+      setStep("submitted");
     } catch (error: any) {
       toast({ title: "Error sending wish", description: error.message, variant: "destructive" });
     } finally {
@@ -163,7 +172,8 @@ const CelebratePage = () => {
     );
   }
 
-  if (submitted) {
+  // Submitted confirmation
+  if (step === "submitted") {
     return (
       <div className="min-h-screen relative" style={{ background: `linear-gradient(180deg, #080E24 0%, ${accentColor}10 50%, #080E24 100%)` }}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -171,18 +181,12 @@ const CelebratePage = () => {
             <div
               key={i}
               className="absolute w-1 h-1 rounded-full animate-twinkle"
-              style={{
-                background: accentColor,
-                opacity: 0.3,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-              }}
+              style={{ background: accentColor, opacity: 0.3, top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 3}s` }}
             />
           ))}
         </div>
         <div className="relative max-w-lg mx-auto px-4">
-          <WishConfirmation recipientName={displayName} accentColor={accentColor} />
+          <WishConfirmation recipientName={displayName} accentColor={accentColor} senderCountry={senderCountry} />
         </div>
       </div>
     );
@@ -200,48 +204,28 @@ const CelebratePage = () => {
           <div
             key={i}
             className="absolute w-1 h-1 rounded-full animate-twinkle"
-            style={{
-              background: accentColor,
-              opacity: 0.2,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-            }}
+            style={{ background: accentColor, opacity: 0.2, top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 3}s` }}
           />
         ))}
       </div>
 
       <div className="relative max-w-2xl mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Back link */}
+        <Link to="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white/60 text-sm mb-8 transition-colors">
+          <ArrowLeft className="w-4 h-4" />
+          BirthdayCORE
+        </Link>
+
+        {/* Photos side by side */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-10"
+          className="grid grid-cols-2 gap-4 mb-8"
         >
-          <Link to="/" className="inline-flex items-center gap-2 text-white/40 hover:text-white/60 text-sm mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            BirthdayCORE
-          </Link>
-
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-2">
-            Celebrate{" "}
-            <span style={{ color: accentColor }}>{displayName}</span>
-          </h1>
-          {profile.country && (
-            <p className="text-white/40 text-sm flex items-center justify-center gap-1.5">
-              <Globe className="w-3.5 h-3.5" /> {profile.country}
-            </p>
-          )}
-        </motion.div>
-
-        {/* Two photos side by side */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-          className="grid grid-cols-2 gap-4 mb-10"
-        >
-          <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 relative group">
+          <div
+            className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 relative"
+            style={{ boxShadow: `0 0 40px ${accentColor}15` }}
+          >
             {profile.avatar_url ? (
               <img src={profile.avatar_url} alt="The Self" className="w-full h-full object-cover" />
             ) : (
@@ -253,7 +237,10 @@ const CelebratePage = () => {
               <p className="text-xs text-white/60 font-medium">The Self</p>
             </div>
           </div>
-          <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 relative group">
+          <div
+            className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 relative"
+            style={{ boxShadow: `0 0 40px ${accentColor}15` }}
+          >
             {profile.essence_photo_url ? (
               <img src={profile.essence_photo_url} alt="The Essence" className="w-full h-full object-cover" />
             ) : (
@@ -267,6 +254,36 @@ const CelebratePage = () => {
           </div>
         </motion.div>
 
+        {/* Name + Country */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-center mb-8"
+        >
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-2">
+            {displayName}
+          </h1>
+          {profile.country && (
+            <p className="text-white/40 text-sm flex items-center justify-center gap-1.5">
+              <span>{getCountryFlag(profile.country)}</span> {profile.country}
+            </p>
+          )}
+        </motion.div>
+
+        {/* Waiting room counter */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-center mb-8"
+        >
+          <p className="text-white/50 text-base">
+            <span className="font-bold font-display" style={{ color: accentColor }}>{wishCount || 12}</span> wishes have arrived from{" "}
+            <span className="font-bold font-display" style={{ color: accentColor }}>{countryCount || 7}</span> countries
+          </p>
+        </motion.div>
+
         {/* Wish prompt */}
         {profile.wish_prompt && (
           <motion.div
@@ -275,47 +292,26 @@ const CelebratePage = () => {
             transition={{ delay: 0.3 }}
             className="text-center mb-10 px-6"
           >
-            <div className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-3" style={{ background: `${accentColor}20`, color: accentColor }}>
-              Their wish prompt
-            </div>
             <p className="font-display text-xl md:text-2xl text-white/90 italic leading-relaxed">
               "{profile.wish_prompt}"
             </p>
           </motion.div>
         )}
 
-        {/* Waiting room counter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="flex items-center justify-center gap-6 mb-10"
-        >
-          <div className="text-center">
-            <p className="text-2xl font-bold font-display" style={{ color: accentColor }}>{wishCount}</p>
-            <p className="text-xs text-white/40">wishes arrived</p>
-          </div>
-          <div className="w-px h-8 bg-white/10" />
-          <div className="text-center">
-            <p className="text-2xl font-bold font-display" style={{ color: accentColor }}>{countryCount}</p>
-            <p className="text-xs text-white/40">countries</p>
-          </div>
-        </motion.div>
-
         {/* CTA or Form */}
         <AnimatePresence mode="wait">
-          {!showForm ? (
+          {step === "landing" && (
             <motion.div
               key="cta"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 0.4 }}
               className="text-center"
             >
               <Button
                 size="lg"
-                onClick={() => setShowForm(true)}
+                onClick={() => setStep("wish")}
                 className="h-14 px-10 text-lg font-bold border-0 hover:opacity-90 shadow-lg"
                 style={{ background: accentColor, color: "#080E24" }}
               >
@@ -323,9 +319,11 @@ const CelebratePage = () => {
                 Send a Birthday Wish
               </Button>
             </motion.div>
-          ) : (
+          )}
+
+          {step === "wish" && (
             <motion.div
-              key="form"
+              key="wish-form"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
@@ -354,42 +352,54 @@ const CelebratePage = () => {
                   <Textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Write your birthday wish..."
+                    placeholder="Write something they will remember..."
                     className="bg-white/5 border-white/10 text-white placeholder:text-white/30 min-h-[120px] resize-none focus:border-white/20"
-                    maxLength={500}
                   />
-                  <p className="text-xs text-white/30 text-right">{message.length}/500</p>
+                  {message.length > 0 && message.length < 10 && (
+                    <p className="text-xs text-destructive">At least 10 characters needed</p>
+                  )}
                 </div>
-              </div>
 
-              {/* Gift nudge */}
+                <Button
+                  onClick={() => setStep("gift")}
+                  disabled={!isStep1Valid}
+                  className="w-full h-12 text-base font-semibold border-0 hover:opacity-90 disabled:opacity-30"
+                  style={{ background: accentColor, color: "#080E24" }}
+                >
+                  Continue
+                </Button>
+              </div>
+            </motion.div>
+          )}
+
+          {step === "gift" && (
+            <motion.div
+              key="gift-form"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              className="space-y-4"
+            >
+              <button
+                onClick={() => setStep("wish")}
+                className="text-xs text-white/40 hover:text-white/60 transition-colors flex items-center gap-1"
+              >
+                <ArrowLeft className="w-3 h-3" /> Back to wish
+              </button>
+
               <GiftNudge
                 accentColor={accentColor}
                 amount={giftAmount}
                 onAmountChange={setGiftAmount}
+                onSendWithGift={() => handleSubmit(true)}
+                onSendWithoutGift={() => handleSubmit(false)}
+                submitting={submitting}
               />
-
-              {/* Submit */}
-              <Button
-                onClick={handleSubmit}
-                disabled={submitting || !message.trim()}
-                className="w-full h-14 text-lg font-bold border-0 hover:opacity-90 disabled:opacity-40"
-                style={{ background: accentColor, color: "#080E24" }}
-              >
-                {submitting ? (
-                  <Sparkles className="w-5 h-5 animate-spin" />
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Send className="w-5 h-5" />
-                    Send My Wish
-                  </span>
-                )}
-              </Button>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Footer attribution */}
+        {/* Footer */}
         <div className="text-center mt-16 pb-8">
           <p className="text-xs text-white/20">
             Powered by{" "}
