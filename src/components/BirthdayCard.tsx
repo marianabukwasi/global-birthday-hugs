@@ -26,9 +26,9 @@ export const BirthdayCard = ({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-card rounded-2xl border border-border shadow-card hover:shadow-champagne transition-all hover:-translate-y-1 overflow-hidden"
+      className="bg-card rounded-2xl border border-border shadow-card hover:shadow-glow-gold transition-all hover:-translate-y-1 overflow-hidden"
     >
-      <div className="h-20 bg-gradient-champagne relative">
+      <div className="h-20 bg-gradient-gold relative">
         <div className="absolute -bottom-8 left-5">
           <div className="w-16 h-16 rounded-full border-4 border-card bg-muted overflow-hidden">
             <img src={avatar} alt={name} className="w-full h-full object-cover" />
