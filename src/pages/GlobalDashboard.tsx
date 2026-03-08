@@ -15,7 +15,7 @@ const BIRTHDAY_DOTS = [
 const stats = [
   { label: "People celebrating today", value: "2,847", icon: Users, color: "text-celebration-pink", sub: "" },
   { label: "Oldest celebrating today", value: "94", icon: Clock, color: "text-primary", sub: "years old — Canada 🇨🇦" },
-  { label: "Youngest celebrating today", value: "18", icon: Cake, color: "text-celebration-emerald", sub: "years old — Uganda 🇺🇬" },
+  { label: "Highest birthday collection", value: "$600", icon: DollarSign, color: "text-celebration-emerald", sub: "" },
   { label: "Highest birthday pot ever", value: "$4,230", icon: Gift, color: "text-celebration-orange", sub: "" },
   { label: "Total wishes since launch", value: "128,440", icon: Globe, color: "text-celebration-cyan", sub: "" },
   { label: "Countries represented", value: "89", icon: MapPin, color: "text-celebration-purple", sub: "" },
