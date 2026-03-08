@@ -51,16 +51,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        champagne: {
-          DEFAULT: "hsl(var(--champagne))",
-          light: "hsl(var(--champagne-light))",
-          glow: "hsl(var(--champagne-glow))",
+        gold: {
+          DEFAULT: "hsl(var(--gold))",
+          light: "hsl(var(--gold-light))",
+          glow: "hsl(var(--gold-glow))",
         },
-        bone: "hsl(var(--bone))",
-        slate: {
-          DEFAULT: "hsl(var(--slate))",
-          muted: "hsl(var(--slate-muted))",
-        },
+        midnight: "hsl(var(--midnight))",
+        navy: "hsl(var(--navy))",
         atmosphere: {
           sage: "hsl(var(--atmosphere-sage))",
           burnt: "hsl(var(--atmosphere-burnt))",
@@ -111,12 +108,16 @@ export default {
           "100%": { transform: "translateY(100vh) rotate(720deg)", opacity: "0" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(40 45% 58% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(40 45% 58% / 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(43 90% 61% / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(43 90% 61% / 0.6)" },
         },
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
+        },
+        "twinkle": {
+          "0%, 100%": { opacity: "0.3" },
+          "50%": { opacity: "1" },
         },
       },
       animation: {
@@ -126,6 +127,7 @@ export default {
         "confetti-fall": "confetti-fall 4s linear infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "spin-slow": "spin-slow 20s linear infinite",
+        "twinkle": "twinkle 3s ease-in-out infinite",
       },
     },
   },

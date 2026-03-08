@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { PartyPopper, Menu, X, LogOut, User } from "lucide-react";
+import { Sparkles, Menu, X, LogOut, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Navbar = () => {
@@ -47,11 +47,11 @@ export const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to={user ? "/dashboard" : "/"} className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-celebration flex items-center justify-center shadow-glow-pink">
-            <PartyPopper className="w-5 h-5 text-primary-foreground" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-gold flex items-center justify-center shadow-glow-gold">
+            <Sparkles className="w-5 h-5 text-primary-foreground" />
           </div>
           <span className="font-display text-xl font-bold text-foreground">
-            Birthday<span className="text-gradient-celebration">CORE</span>
+            Birthday<span className="text-gradient-gold">CORE</span>
           </span>
         </Link>
 
@@ -85,7 +85,7 @@ export const Navbar = () => {
               <Button variant="outline" size="sm" onClick={() => navigate("/auth")}>
                 Sign In
               </Button>
-              <Button size="sm" className="bg-gradient-celebration text-primary-foreground border-0 hover:opacity-90" onClick={() => navigate("/auth")}>
+              <Button size="sm" className="bg-gradient-gold text-primary-foreground border-0 hover:opacity-90" onClick={() => navigate("/auth")}>
                 Join Free
               </Button>
             </>
@@ -129,7 +129,7 @@ export const Navbar = () => {
                 ) : (
                   <>
                     <Button variant="outline" size="sm" className="flex-1" onClick={() => { navigate("/auth"); setIsOpen(false); }}>Sign In</Button>
-                    <Button size="sm" className="flex-1 bg-gradient-celebration text-primary-foreground border-0" onClick={() => { navigate("/auth"); setIsOpen(false); }}>Join Free</Button>
+                    <Button size="sm" className="flex-1 bg-gradient-gold text-primary-foreground border-0" onClick={() => { navigate("/auth"); setIsOpen(false); }}>Join Free</Button>
                   </>
                 )}
               </div>
