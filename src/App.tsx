@@ -16,6 +16,7 @@ import HowItWorksPage from "./pages/HowItWorksPage";
 import BirthdayReveal from "./pages/BirthdayReveal";
 import GiverConfirmation from "./pages/GiverConfirmation";
 import ReceiverWelcome from "./pages/ReceiverWelcome";
+import BirthdayOffers from "./pages/BirthdayOffers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
