@@ -17,6 +17,11 @@ import BirthdayReveal from "./pages/BirthdayReveal";
 import GiverConfirmation from "./pages/GiverConfirmation";
 import ReceiverWelcome from "./pages/ReceiverWelcome";
 import BirthdayOffers from "./pages/BirthdayOffers";
+import BirthdayRevealPage from "./pages/BirthdayRevealPage";
+import ThankYouFlow from "./pages/ThankYouFlow";
+import ReferralMoment from "./pages/ReferralMoment";
+import CashoutFlow from "./pages/CashoutFlow";
+import NotificationSettings from "./pages/NotificationSettings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +47,11 @@ const App = () => (
           <Route path="/reveal/:userId" element={<BirthdayReveal />} />
           <Route path="/celebrate/:userId" element={<CelebratePage />} />
           <Route path="/offers" element={<BirthdayOffers />} />
+          <Route path="/birthday-reveal" element={<BirthdayRevealPage />} />
+          <Route path="/thank-you" element={<ThankYouFlow />} />
+          <Route path="/referral" element={<ReferralMoment />} />
+          <Route path="/cashout" element={<CashoutFlow />} />
+          <Route path="/settings/notifications" element={<NotificationSettings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
