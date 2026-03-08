@@ -230,6 +230,48 @@ export type Database = {
         }
         Relationships: []
       }
+      support_tickets: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          report_description: string | null
+          report_profile_link: string | null
+          report_wish_id: string | null
+          status: string
+          subject: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          report_description?: string | null
+          report_profile_link?: string | null
+          report_wish_id?: string | null
+          status?: string
+          subject?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          report_description?: string | null
+          report_profile_link?: string | null
+          report_wish_id?: string | null
+          status?: string
+          subject?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       wish_reports: {
         Row: {
           created_at: string
