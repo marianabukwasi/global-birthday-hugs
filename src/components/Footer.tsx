@@ -52,10 +52,15 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 text-center">
+        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} BirthdayCORE. Celebrating life, globally.
           </p>
+          <div className="flex items-center gap-4">
+            <Link to="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Terms</Link>
+            <Link to="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Privacy</Link>
+            <Link to="/support" className="text-xs text-muted-foreground hover:text-foreground transition-colors">Support</Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -26,6 +26,10 @@ import CashoutFlow from "./pages/CashoutFlow";
 import NotificationSettings from "./pages/NotificationSettings";
 import CartPage from "./pages/CartPage";
 import OffersAdmin from "./pages/OffersAdmin";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Support from "./pages/Support";
+import { CookieConsent } from "./components/CookieConsent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -60,8 +64,12 @@ const App = () => (
               <Route path="/settings/notifications" element={<NotificationSettings />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/admin/offers" element={<OffersAdmin />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/support" element={<Support />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <CookieConsent />
           </BrowserRouter>
         </TooltipProvider>
       </CartProvider>
