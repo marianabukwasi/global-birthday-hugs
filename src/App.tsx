@@ -11,6 +11,7 @@ import ProfileSetup from "./pages/ProfileSetup";
 import Discover from "./pages/Discover";
 import GlobalDashboard from "./pages/GlobalDashboard";
 import HowItWorksPage from "./pages/HowItWorksPage";
+import BirthdayReveal from "./pages/BirthdayReveal";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/discover" element={<Discover />} />
           <Route path="/global" element={<GlobalDashboard />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/reveal/:userId" element={<BirthdayReveal />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
