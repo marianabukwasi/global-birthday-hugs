@@ -16,6 +16,7 @@ import HowItWorksPage from "./pages/HowItWorksPage";
 import BirthdayReveal from "./pages/BirthdayReveal";
 import GiverConfirmation from "./pages/GiverConfirmation";
 import ReceiverWelcome from "./pages/ReceiverWelcome";
+import BirthdayOffers from "./pages/BirthdayOffers";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/reveal/:userId" element={<BirthdayReveal />} />
           <Route path="/celebrate/:userId" element={<CelebratePage />} />
+          <Route path="/offers" element={<BirthdayOffers />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

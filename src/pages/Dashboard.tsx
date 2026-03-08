@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import {
   Gift, Globe, Users, Sparkles,
-  Send, Crown, TrendingUp, Calendar, Copy
+  Send, Crown, TrendingUp, Calendar, Copy, Tag
 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import WishVault from "@/components/dashboard/WishVault";
 import { BirthdayCountdown } from "@/components/dashboard/BirthdayCountdown";
 import ProfileSetupSection from "@/components/dashboard/ProfileSetupSection";
 import PhonePreview from "@/components/dashboard/PhonePreview";
+import GlimmerDraw from "@/components/dashboard/GlimmerDraw";
+import GivingRecognition from "@/components/profile/GivingRecognition";
+import BirthdayCapsules from "@/components/profile/BirthdayCapsules";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -214,6 +217,21 @@ const Dashboard = () => {
                   />
                 </div>
               </motion.div>
+
+              {/* Glimmer Draw */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+                <GlimmerDraw daysUntilBirthday={daysUntil} />
+              </motion.div>
+
+              {/* Giving Recognition */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+                <GivingRecognition totalGiven={57} totalReceived={230} />
+              </motion.div>
+
+              {/* Birthday Capsules */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
+                <BirthdayCapsules capsules={[]} />
+              </motion.div>
             </div>
 
             {/* Right — Phone Preview */}
@@ -256,6 +274,7 @@ const Dashboard = () => {
                 { icon: Gift, label: "Glimmer Draw", desc: "Check your birthday prizes", to: "/dashboard", color: "bg-primary/20 text-primary" },
                 { icon: Calendar, label: "My Capsules", desc: "View past birthday capsules", to: "/dashboard", color: "bg-celebration-purple/20 text-celebration-purple" },
                 { icon: Globe, label: "Global Celebrations", desc: "See who's celebrating today", to: "/global", color: "bg-celebration-cyan/20 text-celebration-cyan" },
+                { icon: Tag, label: "Birthday Offers", desc: "Deals & discounts near you", to: "/offers", color: "bg-celebration-orange/20 text-celebration-orange" },
               ].map((action, i) => (
                 <motion.div key={action.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + i * 0.05 }}>
                   <Link to={action.to} className="block glass rounded-xl p-5 hover:border-primary/30 transition-all group">
