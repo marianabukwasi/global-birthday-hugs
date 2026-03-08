@@ -217,6 +217,21 @@ const Dashboard = () => {
                   />
                 </div>
               </motion.div>
+
+              {/* Glimmer Draw */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+                <GlimmerDraw daysUntilBirthday={daysUntil} />
+              </motion.div>
+
+              {/* Giving Recognition */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+                <GivingRecognition totalGiven={57} totalReceived={230} />
+              </motion.div>
+
+              {/* Birthday Capsules */}
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
+                <BirthdayCapsules capsules={[]} />
+              </motion.div>
             </div>
 
             {/* Right — Phone Preview */}
