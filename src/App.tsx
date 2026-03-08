@@ -26,6 +26,7 @@ import CashoutFlow from "./pages/CashoutFlow";
 import NotificationSettings from "./pages/NotificationSettings";
 import CartPage from "./pages/CartPage";
 import OffersAdmin from "./pages/OffersAdmin";
+import AdminDashboard from "./pages/AdminDashboard";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import Support from "./pages/Support";
