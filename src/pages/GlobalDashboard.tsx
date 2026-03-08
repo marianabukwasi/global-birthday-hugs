@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { motion } from "framer-motion";
-import { Globe, Users, Cake, Gift, Clock, MapPin } from "lucide-react";
+import { Globe, Users, Cake, Gift, Clock, MapPin, DollarSign } from "lucide-react";
 
 // Simple world map dots — approximate lat/lng positions mapped to percentage
 const BIRTHDAY_DOTS = [
