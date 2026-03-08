@@ -94,7 +94,7 @@ const Index = () => {
                   Celebrate Someone
                 </Button>
               </Link>
-              <Link to="/auth?mode=signup">
+              <Link to="/setup">
                 <Button
                   size="lg"
                   variant="outline"
