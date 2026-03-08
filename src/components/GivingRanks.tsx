@@ -41,7 +41,7 @@ export const GivingRanks = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className={`${rank.color} rounded-2xl p-5 text-center border border-border hover:shadow-champagne transition-all hover:-translate-y-1`}
+              className={`${rank.color} rounded-2xl p-5 text-center border border-border hover:shadow-glow-gold transition-all hover:-translate-y-1`}
             >
               <div className="flex justify-center gap-0.5 mb-3">
                 {Array.from({ length: rank.stars }).map((_, s) => (

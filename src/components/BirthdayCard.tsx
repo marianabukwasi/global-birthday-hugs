@@ -26,9 +26,9 @@ export const BirthdayCard = ({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-card rounded-2xl border border-border shadow-card hover:shadow-champagne transition-all hover:-translate-y-1 overflow-hidden"
+      className="bg-card rounded-2xl border border-border shadow-card hover:shadow-glow-gold transition-all hover:-translate-y-1 overflow-hidden"
     >
-      <div className="h-20 bg-gradient-champagne relative">
+      <div className="h-20 bg-gradient-gold relative">
         <div className="absolute -bottom-8 left-5">
           <div className="w-16 h-16 rounded-full border-4 border-card bg-muted overflow-hidden">
             <img src={avatar} alt={name} className="w-full h-full object-cover" />
@@ -57,7 +57,7 @@ export const BirthdayCard = ({
             <span className="text-muted-foreground">${goal} goal</span>
           </div>
           <div className="h-2 bg-muted rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-champagne rounded-full transition-all" style={{ width: `${progress}%` }} />
+            <div className="h-full bg-gradient-gold rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
           <div className="text-xs text-muted-foreground mt-1">
             <Heart className="w-3 h-3 inline text-primary" /> {contributors} contributors
@@ -65,7 +65,7 @@ export const BirthdayCard = ({
         </div>
 
         <Link to={`/profile/${id}`}>
-          <Button size="sm" className="w-full bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90 rounded-full">
+          <Button size="sm" className="w-full bg-gradient-gold text-primary-foreground border-0 hover:opacity-90 rounded-full">
             🎉 Contribute $1
           </Button>
         </Link>

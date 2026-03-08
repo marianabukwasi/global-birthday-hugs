@@ -129,7 +129,7 @@ export const BirthdayVideoPlayer = ({
               <div className="text-5xl mb-4">🎉</div>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-foreground mb-3">
                 Celebrated by{" "}
-                <span className="text-gradient-champagne">{wishes.length} people</span>
+                <span className="text-gradient-gold">{wishes.length} people</span>
               </h2>
               <p className="text-lg text-muted-foreground">
                 from{" "}
@@ -150,7 +150,7 @@ export const BirthdayVideoPlayer = ({
         {scene === "idle" ? (
           <Button
             onClick={handlePlay}
-            className="bg-gradient-champagne text-primary-foreground border-0 hover:opacity-90"
+            className="bg-gradient-gold text-primary-foreground border-0 hover:opacity-90"
           >
             <Play className="w-4 h-4 mr-2" /> Play Birthday Video
           </Button>
