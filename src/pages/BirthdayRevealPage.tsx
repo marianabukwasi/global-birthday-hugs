@@ -6,8 +6,9 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { Globe, Image, Video, Sparkles, Users, MapPin } from "lucide-react";
+import { Image, Video, Sparkles } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { BirthdayCoreGlobe, GlobeWish } from "@/components/reveal/BirthdayCoreGlobe";
 
 const BirthdayRevealPage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const BirthdayRevealPage = () => {
   const [wishCount, setWishCount] = useState(0);
   const [countryCount, setCountryCount] = useState(0);
   const [donationAmount, setDonationAmount] = useState("");
+  const [globeWishes, setGlobeWishes] = useState<GlobeWish[]>([]);
+  const [globeComplete, setGlobeComplete] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -24,23 +27,54 @@ const BirthdayRevealPage = () => {
       const { data: profileData } = await supabase.from("profiles").select("*").eq("id", user.id).single();
       setProfile(profileData);
 
-      const { data: wishes } = await supabase.from("wishes").select("sender_id").eq("recipient_id", user.id);
+      const { data: wishes } = await supabase
+        .from("wishes")
+        .select("*")
+        .eq("recipient_id", user.id)
+        .order("created_at", { ascending: true });
+
       setWishCount(wishes?.length || 0);
 
       if (wishes && wishes.length > 0) {
         const senderIds = [...new Set(wishes.map(w => w.sender_id))];
         const { data: senderProfiles } = await supabase
           .from("profiles")
-          .select("country")
+          .select("id, full_name, country, city")
           .in("id", senderIds);
+
+        const profileMap = new Map(senderProfiles?.map(p => [p.id, p]) || []);
         const countries = new Set(senderProfiles?.map(p => p.country).filter(Boolean));
         setCountryCount(countries.size);
+
+        const mapped: GlobeWish[] = wishes.map(w => {
+          const sp = profileMap.get(w.sender_id);
+          return {
+            countryCode: "",
+            countryName: sp?.country || "Unknown",
+            city: sp?.city || undefined,
+            timestamp: w.created_at,
+            contentType: w.video_url ? "video" as const : "photo" as const,
+            contentURL: w.video_url || w.image_url || undefined,
+            senderName: sp?.full_name || "Anonymous",
+            quote: w.message || undefined,
+          };
+        });
+        setGlobeWishes(mapped);
       }
     };
     load();
   }, [navigate]);
 
   const displayName = profile?.preferred_name || profile?.full_name || "Celebrant";
+  const age = (() => {
+    if (!profile?.birthday_month || !profile?.birthday_day) return 0;
+    const now = new Date();
+    const birthYear = profile.birth_year || (now.getFullYear() - 25);
+    let a = now.getFullYear() - birthYear;
+    const bd = new Date(now.getFullYear(), profile.birthday_month - 1, profile.birthday_day);
+    if (now < bd) a--;
+    return a;
+  })();
 
   const handleDonate = () => {
     const amt = parseFloat(donationAmount);
@@ -55,13 +89,13 @@ const BirthdayRevealPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-3xl">
+      <main className="pt-20 pb-16">
+        <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+            className="text-center mb-8"
           >
             <motion.div
               initial={{ scale: 0 }}
@@ -77,36 +111,22 @@ const BirthdayRevealPage = () => {
             <p className="text-xl text-muted-foreground">The world showed up for you.</p>
           </motion.div>
 
-          {/* Section 1 — Globe */}
+          {/* Section 1 — Live 3D Globe */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="rounded-2xl bg-card border border-border overflow-hidden mb-6"
           >
-            <div className="aspect-video bg-gradient-to-b from-secondary to-card flex flex-col items-center justify-center relative">
-              <Globe className="w-20 h-20 text-primary/40 mb-4" />
-              <p className="text-foreground font-medium mb-1">Your globe animation is loading...</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                GLOBE — Developer component will be inserted here
-              </p>
-              {/* Simulated gold pings */}
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 rounded-full bg-primary"
-                  style={{
-                    top: `${20 + Math.random() * 60}%`,
-                    left: `${15 + Math.random() * 70}%`,
-                  }}
-                  animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
-                  transition={{ repeat: Infinity, duration: 2, delay: i * 0.4 }}
-                />
-              ))}
-            </div>
+            <BirthdayCoreGlobe
+              wishes={globeWishes}
+              receiverName={displayName}
+              receiverAge={age}
+              onComplete={() => setGlobeComplete(true)}
+            />
           </motion.div>
 
-          {/* Section 2 — Birthday Card / Mosaic */}
+          {/* Section 2 — Birthday Card / Mosaic placeholder */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -122,7 +142,7 @@ const BirthdayRevealPage = () => {
             </div>
           </motion.div>
 
-          {/* Section 3 — Birthday Video */}
+          {/* Section 3 — Birthday Video placeholder */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
