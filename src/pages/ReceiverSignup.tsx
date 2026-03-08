@@ -1,49 +1,52 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Crown } from "lucide-react";
 import { motion } from "framer-motion";
 import { COUNTRIES, MONTHS } from "@/lib/constants";
 
-const GiverSignup = () => {
-  const [searchParams] = useSearchParams();
-  const inviteId = searchParams.get("invite");
+const ReceiverSignup = () => {
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
-  const [country, setCountry] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [birthdayDay, setBirthdayDay] = useState("");
   const [birthdayMonth, setBirthdayMonth] = useState("");
-  const [email, setEmail] = useState("");
+  const [birthYear, setBirthYear] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!country || !birthdayMonth || !birthdayDay) {
-      toast({ title: "Please fill all fields", variant: "destructive" });
+      toast({ title: "Please fill all required fields", variant: "destructive" });
       return;
     }
     setLoading(true);
 
     try {
-      // Generate a random password since givers sign up without one
-      const randomPassword = crypto.randomUUID();
-
       const { error } = await supabase.auth.signUp({
         email,
-        password: randomPassword,
+        password,
         options: {
           data: {
             full_name: fullName,
             country,
+            city,
             birthday_day: parseInt(birthdayDay),
             birthday_month: MONTHS.indexOf(birthdayMonth) + 1,
-            user_type: "giver",
+            birth_year: birthYear ? parseInt(birthYear) : null,
+            user_type: "receiver",
           },
           emailRedirectTo: window.location.origin,
         },
@@ -51,15 +54,13 @@ const GiverSignup = () => {
       if (error) throw error;
 
       toast({
-        title: "Welcome to BirthdayCORE! 🎉",
-        description: "Check your email to verify your account.",
+        title: "Account created! 🎂",
+        description: "Check your email to verify, then complete payment to activate your page.",
       });
 
-      if (inviteId) {
-        navigate(`/celebrate/${inviteId}`);
-      } else {
-        navigate("/dashboard");
-      }
+      // TODO: Redirect to Stripe Checkout for $10/year payment
+      // For now, redirect to dashboard
+      navigate("/dashboard");
     } catch (error: any) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
     } finally {
@@ -88,8 +89,8 @@ const GiverSignup = () => {
               <Sparkles className="w-6 h-6 text-primary-foreground" />
             </div>
           </Link>
-          <h1 className="font-display text-3xl font-bold text-foreground mb-2">Celebrate Someone</h1>
-          <p className="text-muted-foreground">Takes less than 60 seconds — forever free</p>
+          <h1 className="font-display text-3xl font-bold text-foreground mb-2">Set Up My Birthday</h1>
+          <p className="text-muted-foreground">Your personal birthday page, celebrated by the world</p>
         </div>
 
         <div className="glass-strong rounded-2xl p-8">
@@ -107,22 +108,35 @@ const GiverSignup = () => {
             </div>
 
             <div className="space-y-2">
-              <Label>Country</Label>
-              <Select value={country} onValueChange={setCountry}>
-                <SelectTrigger className="bg-muted/50 border-border">
-                  <SelectValue placeholder="Select your country" />
-                </SelectTrigger>
-                <SelectContent>
-                  {COUNTRIES.map((c) => (
-                    <SelectItem key={c} value={c}>{c}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+                className="bg-muted/50 border-border"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+                minLength={6}
+                className="bg-muted/50 border-border"
+              />
             </div>
 
             <div className="space-y-2">
               <Label>Birthday</Label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-2">
                 <Select value={birthdayMonth} onValueChange={setBirthdayMonth}>
                   <SelectTrigger className="bg-muted/50 border-border">
                     <SelectValue placeholder="Month" />
@@ -143,18 +157,41 @@ const GiverSignup = () => {
                     ))}
                   </SelectContent>
                 </Select>
+                <Select value={birthYear} onValueChange={setBirthYear}>
+                  <SelectTrigger className="bg-muted/50 border-border">
+                    <SelectValue placeholder="Year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map((y) => (
+                      <SelectItem key={y} value={String(y)}>{y}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
+              <p className="text-xs text-muted-foreground">Year is optional</p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label>Country</Label>
+              <Select value={country} onValueChange={setCountry}>
+                <SelectTrigger className="bg-muted/50 border-border">
+                  <SelectValue placeholder="Select your country" />
+                </SelectTrigger>
+                <SelectContent>
+                  {COUNTRIES.map((c) => (
+                    <SelectItem key={c} value={c}>{c}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="city">City <span className="text-muted-foreground text-xs">(optional)</span></Label>
               <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
+                id="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                placeholder="Your city"
                 className="bg-muted/50 border-border"
               />
             </div>
@@ -164,8 +201,16 @@ const GiverSignup = () => {
               disabled={loading}
               className="w-full bg-gradient-gold text-primary-foreground border-0 hover:opacity-90 h-12 text-base font-semibold"
             >
-              {loading ? <Sparkles className="w-5 h-5 animate-spin" /> : "Join & Send a Wish"}
+              {loading ? (
+                <Sparkles className="w-5 h-5 animate-spin" />
+              ) : (
+                <span className="flex items-center gap-2">
+                  <Crown className="w-5 h-5" />
+                  Activate My Birthday Page — $10/year
+                </span>
+              )}
             </Button>
+            <p className="text-xs text-center text-muted-foreground">Payment will be connected soon. Account created in test mode.</p>
           </form>
 
           <div className="mt-6 text-center">
@@ -179,4 +224,4 @@ const GiverSignup = () => {
   );
 };
 
-export default GiverSignup;
+export default ReceiverSignup;
