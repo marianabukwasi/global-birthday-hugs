@@ -161,20 +161,24 @@ const BirthdayRevealPage = () => {
             />
           </motion.div>
 
-          {/* Section 3 — Birthday Video placeholder */}
+          {/* Section 3 — Birthday Video */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="rounded-2xl bg-card border border-border overflow-hidden mb-10"
+            className="mb-10"
           >
-            <div className="aspect-video bg-gradient-to-b from-muted to-card flex flex-col items-center justify-center">
-              <Video className="w-20 h-20 text-celebration-purple/40 mb-4" />
-              <p className="text-foreground font-medium mb-1">Your birthday video is being compiled...</p>
-              <p className="text-xs text-muted-foreground uppercase tracking-widest">
-                BIRTHDAY VIDEO — Developer component will be inserted here
-              </p>
+            <div className="text-center mb-4">
+              <h2 className="font-display text-2xl font-bold text-foreground mb-1">Your Birthday Video</h2>
+              <p className="text-sm text-muted-foreground">A compilation of every wish you received</p>
             </div>
+            <BirthdayVideoPlayer
+              videoURL={profile?.video_url || undefined}
+              wishCount={wishCount}
+              countryCount={countryCount}
+              receiverName={displayName}
+              onDonate={handleDonate}
+            />
           </motion.div>
 
           {/* Stats */}
