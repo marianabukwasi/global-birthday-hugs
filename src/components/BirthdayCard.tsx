@@ -57,7 +57,7 @@ export const BirthdayCard = ({
             <span className="text-muted-foreground">${goal} goal</span>
           </div>
           <div className="h-2 bg-muted rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-champagne rounded-full transition-all" style={{ width: `${progress}%` }} />
+            <div className="h-full bg-gradient-gold rounded-full transition-all" style={{ width: `${progress}%` }} />
           </div>
           <div className="text-xs text-muted-foreground mt-1">
             <Heart className="w-3 h-3 inline text-primary" /> {contributors} contributors
