@@ -103,9 +103,16 @@ export type Database = {
           age: number | null
           avatar_url: string | null
           bio: string | null
+          birth_year: number | null
+          birthday_day: number | null
+          birthday_month: number | null
+          city: string | null
+          content_preference: string | null
+          core_color: string | null
           country: string | null
           created_at: string
           email: string | null
+          essence_photo_url: string | null
           favorite_color: string | null
           full_name: string
           hobbies: string[] | null
@@ -115,16 +122,28 @@ export type Database = {
           is_country_public: boolean | null
           is_hobbies_public: boolean | null
           is_name_public: boolean | null
+          is_receiver_active: boolean | null
+          pot_target_cents: number | null
           preferred_name: string | null
+          timezone: string | null
           updated_at: string
+          user_type: string
+          wish_prompt: string | null
         }
         Insert: {
           age?: number | null
           avatar_url?: string | null
           bio?: string | null
+          birth_year?: number | null
+          birthday_day?: number | null
+          birthday_month?: number | null
+          city?: string | null
+          content_preference?: string | null
+          core_color?: string | null
           country?: string | null
           created_at?: string
           email?: string | null
+          essence_photo_url?: string | null
           favorite_color?: string | null
           full_name?: string
           hobbies?: string[] | null
@@ -134,16 +153,28 @@ export type Database = {
           is_country_public?: boolean | null
           is_hobbies_public?: boolean | null
           is_name_public?: boolean | null
+          is_receiver_active?: boolean | null
+          pot_target_cents?: number | null
           preferred_name?: string | null
+          timezone?: string | null
           updated_at?: string
+          user_type?: string
+          wish_prompt?: string | null
         }
         Update: {
           age?: number | null
           avatar_url?: string | null
           bio?: string | null
+          birth_year?: number | null
+          birthday_day?: number | null
+          birthday_month?: number | null
+          city?: string | null
+          content_preference?: string | null
+          core_color?: string | null
           country?: string | null
           created_at?: string
           email?: string | null
+          essence_photo_url?: string | null
           favorite_color?: string | null
           full_name?: string
           hobbies?: string[] | null
@@ -153,8 +184,13 @@ export type Database = {
           is_country_public?: boolean | null
           is_hobbies_public?: boolean | null
           is_name_public?: boolean | null
+          is_receiver_active?: boolean | null
+          pot_target_cents?: number | null
           preferred_name?: string | null
+          timezone?: string | null
           updated_at?: string
+          user_type?: string
+          wish_prompt?: string | null
         }
         Relationships: []
       }
