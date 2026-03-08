@@ -35,6 +35,7 @@ const App = () => (
           <Route path="/global" element={<GlobalDashboard />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/reveal/:userId" element={<BirthdayReveal />} />
+          <Route path="/celebrate/:userId" element={<CelebratePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
