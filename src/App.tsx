@@ -14,6 +14,8 @@ import Discover from "./pages/Discover";
 import GlobalDashboard from "./pages/GlobalDashboard";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import BirthdayReveal from "./pages/BirthdayReveal";
+import GiverConfirmation from "./pages/GiverConfirmation";
+import ReceiverWelcome from "./pages/ReceiverWelcome";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,7 +30,9 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/join" element={<GiverSignup />} />
+          <Route path="/join/confirmation" element={<GiverConfirmation />} />
           <Route path="/setup" element={<ReceiverSignup />} />
+          <Route path="/setup/welcome" element={<ReceiverWelcome />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile-setup" element={<ProfileSetup />} />
           <Route path="/discover" element={<Discover />} />
