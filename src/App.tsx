@@ -17,6 +17,11 @@ import BirthdayReveal from "./pages/BirthdayReveal";
 import GiverConfirmation from "./pages/GiverConfirmation";
 import ReceiverWelcome from "./pages/ReceiverWelcome";
 import BirthdayOffers from "./pages/BirthdayOffers";
+import BirthdayRevealPage from "./pages/BirthdayRevealPage";
+import ThankYouFlow from "./pages/ThankYouFlow";
+import ReferralMoment from "./pages/ReferralMoment";
+import CashoutFlow from "./pages/CashoutFlow";
+import NotificationSettings from "./pages/NotificationSettings";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
