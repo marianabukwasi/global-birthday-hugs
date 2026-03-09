@@ -17,7 +17,7 @@ const featureCards = [
   },
   {
     icon: Users,
-    title: "The World Card",
+    title: "Your Birthday Card From Around the World",
     description:
       "Your age, formed from the faces of every person who celebrated you. A living mosaic — hoverable, printable, unforgettable.",
     gradient: "from-celebration-pink/20 to-celebration-purple/10",
